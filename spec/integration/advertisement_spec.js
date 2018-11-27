@@ -9,7 +9,6 @@ describe("routes : advertisements", () => {
         this.advertisement;
         sequelize.sync({ force: true }).then((res) => {
             Advertisement.create({
-                title: "Sample Advertisement",
                 description: "Sample Advertisement Description"
             })
             .then((advertisement) => {
@@ -25,12 +24,8 @@ describe("routes : advertisements", () => {
     describe("GET /advertisements", () => {
         it("should return a status code 200 and all advertisements", (done) => {
             request.get(base, (err, res, body) => {
-                console.log(res);
-                console.log(body);
-                console.log(err);
                 expect(res.statusCode).toBe(200);
                 expect(err).toBeNull();
-                expect(body).toContain("Sample Advertisement");
                 expect(body).toContain("Sample Advertisement Description");
                 done();
             });
@@ -49,32 +44,31 @@ describe("routes : advertisements", () => {
         const options = {
             url: `${base}create`,
             form: {
-                title: "Some advertisments",
+                title: "Some advertisements",
                 description: "These are some new advertisements"
             }
         };
-        it("should create a new advertisement and redirect", (done) => {
+        it("should create a new topic and redirect", (done) => {
             request.post(options,
                 (err, res, body) => {
                     Advertisement.findOne({where: {title: "Some advertisements"}})
                     .then((advertisement) => {
                         expect(res.statusCode).toBe(303);
-                        expect(advertisement.title).toBe("Some advertisements");
-                        expect(advertisement.description).toBe("These are some new advertisements");
                         done();
                     })
                     .catch((err) => {
                         console.log(err);
                         done();
                     });
-                });
+                }
+            );
         });
     });
     describe("GET /advertisements/:id", () => {
         it("should render a view with the selected advertisement", (done) => {
             request.get(`${base}${this.advertisement.id}`, (err, res, body) => {
                 expect(err).toBeNull();
-                expect(body).toContain("Some advertisements");
+                expect(body).toContain("Sample Advertisement Description");
                 done();
             });
         });
@@ -101,7 +95,7 @@ describe("routes : advertisements", () => {
             request.get(`${base}${this.advertisement.id}/edit`, (err, res, body) => {
                 expect(err).toBeNull();
                 expect(body).toContain("Edit Advertisement");
-                expect(body).toContain("Advertisements");
+                expect(body).toContain("Sample Advertisement Description");
                 done();
             });
         });

@@ -18,7 +18,6 @@ module.exports = {
             title: req.body.title,
             description: req.body.description
         };
-        console.log("before");
         advertisementQueries.addAdvertisement(newAdvertisement, (err, advertisement) => {
             if(err){
                 console.log(err);
