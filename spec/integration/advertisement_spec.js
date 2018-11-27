@@ -25,6 +25,9 @@ describe("routes : advertisements", () => {
     describe("GET /advertisements", () => {
         it("should return a status code 200 and all advertisements", (done) => {
             request.get(base, (err, res, body) => {
+                console.log(res);
+                console.log(body);
+                console.log(err);
                 expect(res.statusCode).toBe(200);
                 expect(err).toBeNull();
                 expect(body).toContain("Sample Advertisement");
@@ -68,7 +71,7 @@ describe("routes : advertisements", () => {
         });
     });
     describe("GET /advertisements/:id", () => {
-        it("should render a view with the selected advertisment", (done) => {
+        it("should render a view with the selected advertisement", (done) => {
             request.get(`${base}${this.advertisement.id}`, (err, res, body) => {
                 expect(err).toBeNull();
                 expect(body).toContain("Some advertisements");
