@@ -1,5 +1,5 @@
 const advertisementQueries = require("../db/queries.advertisements");
-
+debugger
 module.exports = {
     index(req, res, next){
         advertisementQueries.getAllAdvertisements((err, advertisements) => {
@@ -8,7 +8,7 @@ module.exports = {
             } else {
                 res.render("advertisements/index", {advertisements});
             }
-        })
+        });
     },
     new(req, res, next){
         res.render("advertisements/new");

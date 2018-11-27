@@ -21,15 +21,6 @@ module.exports = {
       updatedAt: {
         allowNull: false,
         type: Sequelize.DATE
-      },
-      topicId: {
-        type: Sequelize.INTEGER,
-        onDelete: "CASCADE",
-        references: {
-          model: "Advertisement",
-          key: "id",
-          as: "topicId",
-        },
       }
     });
   },
@@ -37,3 +28,5 @@ module.exports = {
     return queryInterface.dropTable('Advertisements');
   }
 };
+
+debugger
