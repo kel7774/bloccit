@@ -12,5 +12,3 @@ router.get("/advertisements/:id/edit", advertisementController.edit);
 router.post("/advertisements/:id/update", advertisementController.update);
 
 module.exports = router;
-
-debugger
