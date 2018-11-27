@@ -71,7 +71,7 @@ describe("routes : advertisements", () => {
         it("should render a view with the selected advertisment", (done) => {
             request.get(`${base}${this.advertisement.id}`, (err, res, body) => {
                 expect(err).toBeNull();
-                expect(body).toContain("Advertisements");
+                expect(body).toContain("Some advertisements");
                 done();
             });
         });
