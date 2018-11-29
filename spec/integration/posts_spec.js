@@ -41,7 +41,7 @@ describe("routes : posts", () => {
           });
         });
       });
-      describe("POST /topics/:topicId/posts/create", () => {
+    describe("POST /topics/:topicId/posts/create", () => {
         it("should create a new post and redirect", (done) => {
            const options = {
              url: `${base}/${this.topic.id}/posts/create`,
@@ -51,7 +51,7 @@ describe("routes : posts", () => {
              }
            };
            request.post(options,
-             (err, res, body) => {
+            (err, res, body) => {
                Post.findOne({where: {title: "Watching snow melt"}})
                 .then((post) => {
                     expect(post).not.toBeNull();

@@ -5,7 +5,7 @@ module.exports = {
         res.render("posts/new", {topicId: req.params.topicId});
     },
     create(req, res, next){
-        let newPost= {
+        let newPost = {
           title: req.body.title,
           body: req.body.body,
           topicId: req.params.topicId
@@ -41,14 +41,14 @@ module.exports = {
             if(err || post == null){
                 res.redirect(404, "/");
             } else {
-                res.render("posts/edit", {posts});
+                res.render("posts/edit", {post});
             }
         });
     },
     update(req, res, next) {
         postQueries.updatePost(req.params.id, req.body, (err, post) => {
             if(err || post == null){
-                res.redirect(404, `/topics/${req.params.topicId}/posts/${req.params.id/edit}`);
+                res.redirect(404, `/topics/${req.params.topicId}/posts/${req.params.idedit}/edit`);
             } else {
                 res.redirect(`topics/${req.params.topicId}/posts/${req.params.id}`);
             }
