@@ -41,10 +41,10 @@ describe("Post", () => {
                 expect(post.body).toBe("1. Not having to answer the 'are we there yet?' question.");
                 done();
             })
-            .catch((err) => {
-                console.log(err);
-                done();
-            });
+                .catch((err) => {
+                    console.log(err);
+                    done();
+                });
             });
             it("should not create a post with missing title, body, or assigned topic", (done) => {
                 Post.create({
