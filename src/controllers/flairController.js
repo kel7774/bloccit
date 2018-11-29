@@ -46,7 +46,7 @@ module.exports = {
         });
     },
     update(req, res, next){
-        flairQueries.updateFlair(req.paramsid, req.body, (err, flair) => {
+        flairQueries.updateFlair(req.params.id, req.body, (err, flair) => {
             if(err || flair == null) {
                 res.redirect(404, `/topics/${req.params.topicId}/flairs/${req.params.id}/edit`);
             } else {

@@ -106,7 +106,7 @@ describe("routes : flairs", () => {
             request.post({
                 url: `${base}/${this.topic.id}/flairs/${this.flair.id}/update`,
                 form: {
-                    name: "Low Priority",
+                    name: "Cool post flair",
                     color: "Yellow"
                 }
             }, (err, res, body) => {
@@ -118,7 +118,7 @@ describe("routes : flairs", () => {
             const options = {
                 url: `${base}/${this.topic.id}/flairs/${this.flair.id}/update`,
                 form: {
-                    name: "Low Priority"
+                    name: "Cool post flair"
                 }
             };
             request.post(options,
@@ -128,7 +128,7 @@ describe("routes : flairs", () => {
                         where: {id: this.flair.id}
                     })
                     .then((flair) => {
-                        expect(flair.name).toBe("Low Priority");
+                        expect(flair.name).toBe("Cool post flair");
                         done();
                     });
                 });
