@@ -54,20 +54,20 @@ describe("Topic", () => {
             })
             .catch((err) => {
                 expect(err.message).toContain("Topic.description cannot be null");
-                expect(err.message).toContain("Topic.id cannot be null");
                 done();
             })
         });
     });
     describe("#setPosts()", () => {
         it("should associate an array of posts with one assigned topic", (done) => {
+            console.log(this.topic.id);
             Post.create({
                 title: "NodeJS Asynchronicity",
                 body: "Posts discussing asycnchronicity within NodeJS",
                 topicId: this.topic.id
             })
             .then((newPost) => {
-                expect(this.topic.id).toBe(this.post.topicId);
+                expect(this.topic.id).toBe(newPost.topicId);
                 this.topic.setPosts(newPost)
                 .then((topic) => {
                     expect(topic.id).toBe(newPost.topicId);
