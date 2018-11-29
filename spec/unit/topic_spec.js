@@ -58,24 +58,6 @@ describe("Topic", () => {
             })
         });
     });
-    describe("#setPosts()", () => {
-        it("should associate an array of posts with one assigned topic", (done) => {
-            console.log(this.topic.id);
-            Post.create({
-                title: "NodeJS Asynchronicity",
-                body: "Posts discussing asycnchronicity within NodeJS",
-                topicId: this.topic.id
-            })
-            .then((newPost) => {
-                expect(this.topic.id).toBe(newPost.topicId);
-                this.topic.setPosts(newPost)
-                .then((topic) => {
-                    expect(topic.id).toBe(newPost.topicId);
-                    done();
-                });
-            });
-        });
-    });
     describe("#getPosts()", () => {
         it("should return an array of posts associated with a specific topic", (done) => {
             this.topic.getPosts()
