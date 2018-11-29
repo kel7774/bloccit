@@ -1,5 +1,6 @@
 const Topic = require("./models").Topic;
 const Post = require("./models").Post;
+const Flair = require("./models").Flair;
 
 module.exports = {
     getAllTopics(callback){
@@ -16,6 +17,10 @@ module.exports = {
             include: [{
                 model: Post,
                 as: "posts"
+            }],
+            include: [{
+                model: Flair,
+                as: "flairs"
             }]
         })
         .then((topic) => {
