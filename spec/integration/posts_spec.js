@@ -131,7 +131,6 @@ describe("routes : posts", () => {
                     body: "I love watching them melt slowly."
                 }
             }, (err, res, body) => {
-                console.log(err);
                 expect(res.statusCode).toBe(302);
                 done();
             });
@@ -145,7 +144,6 @@ describe("routes : posts", () => {
             };
             request.post(options,
                 (err, res, body) => {
-                    console.log(err);
                     expect(err).toBeNull();
                     Post.findOne({
                         where: {id: this.post.id}
@@ -154,7 +152,8 @@ describe("routes : posts", () => {
                         expect(post.title).toBe("Snowman Building Competition");
                         done();
                     });
-                });
+                }
+            );
         });
     });
 });
