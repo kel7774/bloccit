@@ -41,7 +41,8 @@ describe("Topic", () => {
         it("should create a topic with a title and description", (done) => {
             Topic.create({
                 title: "Node JS",
-                description: "Thread for NodeJS discussion"
+                description: "Thread for NodeJS discussion",
+                topicId: this.topic.id
             })
             .then((topic) => {
                 expect(topic.title).toBe("Node JS");
@@ -58,7 +59,7 @@ describe("Topic", () => {
                 title: "Node JS"
             })
             .then((topic) => {
-                done();
+                done(); 
             })
             .catch((err) => {
                 expect(err.message).toContain("Topic.description cannot be null");

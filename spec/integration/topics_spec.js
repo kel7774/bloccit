@@ -9,7 +9,6 @@ describe("routes : topics", () => {
   beforeEach((done) => {
     this.topic;
     sequelize.sync({force: true}).then((res) => {
-
       Topic.create({
         title: "JS Frameworks",
         description: "There is a lot of them"
@@ -28,7 +27,6 @@ describe("routes : topics", () => {
   });
   // admin user context
   describe("admin user performing CRUD actions for Topic", () => {
-
     beforeEach((done) => {
       User.create({
         email: "admin@example.com",
@@ -87,9 +85,7 @@ describe("routes : topics", () => {
       };
 
       it("should create a new topic and redirect", (done) => {
-
         request.post(options,
-
           (err, res, body) => {
             Topic.findOne({where: {title: "blink-182 songs"}})
             .then((topic) => {
@@ -105,7 +101,6 @@ describe("routes : topics", () => {
           }
         );
       });
-
       it("should not create a new topic that fails validations", (done) => {
         const options = {
           url: `${base}create`,
@@ -114,10 +109,8 @@ describe("routes : topics", () => {
             description: "b"
           }
         };
-
         request.post(options,
           (err, res, body) => {
-
             Topic.findOne({where: {title: "a"}})
             .then((topic) => {
                 expect(topic).toBeNull();
@@ -159,13 +152,10 @@ describe("routes : topics", () => {
               expect(err).toBeNull();
               expect(topics.length).toBe(topicCountBeforeDelete - 1);
               done();
-            })
-
+            });
           });
         });
-
       });
-
     });
 
     describe("GET /topics/:id/edit", () => {
@@ -211,7 +201,7 @@ describe("routes : topics", () => {
   });
 
   //member user context
-  describe("member user performing CRUD actions for Topic", () => {
+  describe(  "member user performing CRUD actions for Topic", () => {
 
     beforeEach((done) => {
       request.get({
