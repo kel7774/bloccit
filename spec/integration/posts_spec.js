@@ -40,6 +40,7 @@ describe("routes : posts", () => {
            })
        });
    });
+
     describe("GET /topics/:topicId/posts/new", () => {
         it("should render a new post form", (done) => {
           request.get(`${base}/${this.topic.id}/posts/new`, (err, res, body) => {
