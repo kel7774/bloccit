@@ -48,8 +48,7 @@ describe("routes : posts", () => {
             {
               url: 'http://localhost:3000/auth/fake',
               form: {
-                role: 'guest',
-                userId: '0'
+                role: 'guest'
               }
             },
             (err, res, body) => {
