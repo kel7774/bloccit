@@ -4,7 +4,10 @@ module.exports = class ApplicationPolicy {
         this.record = record;
     }
     _isOwner(){
-        return this.record && (this.record.userId == this.user.id);
+        if(this.user){
+            return this.record && (this.record.userId == this.user.id);
+        } 
+        return false;
     }
     _isAdmin(){
         return this.user && this.user.role == "admin";
