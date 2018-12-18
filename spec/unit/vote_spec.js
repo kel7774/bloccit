@@ -1,4 +1,3 @@
-// #1
 const sequelize = require("../../src/db/models/index").sequelize;
 const Topic = require("../../src/db/models").Topic;
 const Post = require("../../src/db/models").Post;
@@ -190,15 +189,15 @@ describe("Vote", () => {
 
         it("should associate a post and a vote together", (done) => {
    
-          Vote.create({
+          Vote.create({           // create a vote on `this.post`
             value: -1,
             postId: this.post.id,
             userId: this.user.id
           })
           .then((vote) => {
-            this.vote = vote;
+            this.vote = vote;     // store it
    
-            Post.create({
+            Post.create({         // create a new post
               title: "Dress code on Proxima b",
               body: "Spacesuit, space helmet, space boots, and space gloves",
               topicId: this.topic.id,
@@ -206,12 +205,12 @@ describe("Vote", () => {
             })
             .then((newPost) => {
    
-              expect(this.vote.postId).toBe(this.post.id);
+              expect(this.vote.postId).toBe(this.post.id); // check vote not associated with newPost
    
-              this.vote.setPost(newPost)
+              this.vote.setPost(newPost)              // update post reference for vote
               .then((vote) => {
    
-                expect(vote.postId).toBe(newPost.id);
+                expect(vote.postId).toBe(newPost.id); // ensure it was updated
                 done();
    
               });
@@ -224,9 +223,9 @@ describe("Vote", () => {
         });
    
       });
-   
+
       describe("#getPost()", () => {
-   
+
         it("should return the associated post", (done) => {
           Vote.create({
             value: 1,
@@ -247,5 +246,68 @@ describe("Vote", () => {
         });
    
       });
+   
 
+      describe("#hasUpvoteFor()", () => {
+        it("should show true when user makes upvote on post", (done) => {
+          Vote.create({
+            value: 1,
+            postId: this.post.id,
+            userId: this.user.id
+          })
+          .then((vote) => {
+            this.vote = vote;
+            Post.create({
+              title: "Another sample title",
+              body: "Another sample body for posts",
+              topicId: this.topic.id,
+              userId: this.user.id
+            })
+            .then((newPost) => {
+              expect(this.vote.postId).not.toBe(newPost.id);
+              this.vote.setPost(newPost)
+              .then((vote) => {
+                expect(vote.postId).toBe(newPost.id);
+                expect(this.vote.userId).toBe(newPost.userId);
+                newPost.hasUpvoteFor(newPost.userId)
+                .then((votes) => {
+                  expect(votes.length > 0).toBe(true);
+                  done();
+                });
+              });
+            });
+          });
+        });
+      });
+      describe("#hasDownvoteFor()", () => {
+        it("should show true when the user has a downvote on a post", (done) => {
+          Vote.create({
+            value: -1,
+            postId: this.post.id,
+            userId: this.user.id
+          })
+          .then((vote) => {
+            this.vote = vote;
+            Post.create({
+              title: "Post title sample",
+              body: "Post body sample",
+              topicId: this.topic.id,
+              userId: this.user.id
+            })
+            .then((newPost) => {
+              expect(this.vote.postId).not.toBe(newPost.id);
+              this.vote.setPost(newPost)
+              .then((vote) => {
+                expect(vote.postId).toBe(newPost.id);
+                expect(this.vote.userId).toBe(newPost.userId);
+                newPost.hasDownvoteFor(newPost.userId)
+                .then((votes) => {
+                  expect(votes.length > 0).toBe(true);
+                  done();
+                });
+              });
+            });
+          });
+        });
+      });
 });

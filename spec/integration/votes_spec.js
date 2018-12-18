@@ -52,7 +52,7 @@ describe("routes : votes", () => {
       });
     });
   });
-
+//guest user
   describe("guest attempting to vote on a post", () => {
 
     beforeEach((done) => {
@@ -97,6 +97,8 @@ describe("routes : votes", () => {
 
     });
   });
+
+  //signed in user
   describe("signed in user voting on a post", () => {
 
     beforeEach((done) => {
@@ -144,7 +146,6 @@ describe("routes : votes", () => {
     });
 
     describe("GET /topics/:topicId/posts/:postId/votes/downvote", () => {
-
       it("should create a downvote", (done) => {
         const options = {
           url: `${base}${this.topic.id}/posts/${this.post.id}/votes/downvote`
@@ -173,6 +174,34 @@ describe("routes : votes", () => {
       });
     });
 
+    describe("GET /topics/:topicId/posts/:postId/votes/upvote", () => {
+      it("should not allow a member to upvote multiple times on the same post", (done) => {
+        Post.findOne({
+          where: {
+            title: "Sample post title"
+          }
+        })
+        Vote.create({
+          value: 1,
+          postId: this.post.id,
+          userId: this.user.id
+        })
+        .then(() => {
+          Vote.create({
+            value: 1,
+            postId: this.post.id,
+            userId: this.user.id
+          });
+        })
+        .then((vote) => {
+          done();
+        })
+        .catch((err) => {
+          expect(err.message).toContain("You can only upvote once on a post.");
+          done();
+        });
+      });
+    });
   }); //end context for signed in user
 
 });

@@ -2,6 +2,7 @@ const sequelize = require("../../src/db/models/index").sequelize;
 const Topic = require("../../src/db/models").Topic;
 const Post = require("../../src/db/models").Post;
 const User = require("../../src/db/models").User;
+const Vote = require("../../src/db/models").Vote;
 
 describe("Post", () => {
     beforeEach((done) => {
@@ -119,6 +120,33 @@ describe("Post", () => {
                     expect(associatedUser.email).toBe("starman@tesla.com");
                     done();
                 });
+            });
+        });
+        describe("#getPoints()", () => {
+            it("should return a sum of votes for the post", (done) => {
+              Post.create({
+                title: "Sample post title",
+                body: "Sample body of post",
+                topicId: this.topic.id,
+                userId: this.user.id,
+                votes: [{
+                  value: 1, 
+                  userId: this.user.id
+                }]
+              }, {
+                include: {
+                  model: Vote,
+                  as: "votes"
+                }
+              })
+              .then((post) => {
+                expect(post.getPoints()).toBe(1);
+                done();
+              })
+              .catch((err) => {
+                console.log(err);
+                done();
+              })
             });
         });
     });
