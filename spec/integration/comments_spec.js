@@ -133,7 +133,7 @@ describe("routes : comments", () => {
             it('should not delete another users comment', (done) => {
                 Comment.all()
                 .then((comments) => {
-                    const commentCountBeforeDelete= comments.length;
+                    const commentCountBeforeDelete = comments.length;
                     expect(commentCountBeforeDelete).toBe(1);
                     request.post( `${base}${this.topic.id}/posts/${this.post.id}/comments/${this.comment.id}/destroy`, 
                     (err, res, body) => {
