@@ -13,6 +13,7 @@ module.exports = {
                     "role": role
                 };
             } else if(id == 0) {
+                // console.log("signing out");
                 delete req.user;
             }
             if( next ){ next() }

@@ -57,10 +57,10 @@ describe("routes : votes", () => {
 
     beforeEach((done) => {
       request.get({
-        url: "http://localhost:3000/auth/fake",
-        form: {
+         url: "http://localhost:3000/auth/fake",
+         form: {
           userId: 0
-        }
+         }
       },
         (err, res, body) => {
           done();
@@ -79,11 +79,12 @@ describe("routes : votes", () => {
           (err, res, body) => {
             Vote.findOne({
               where: {
-                userId: this.user.id,
+                //userId: this.user.id,
                 postId: this.post.id
               }
             })
             .then((vote) => {
+              console.log(vote);
               expect(vote).toBeNull();
               done();
             })
