@@ -79,7 +79,7 @@ describe("routes : votes", () => {
           (err, res, body) => {
             Vote.findOne({
               where: {
-                //userId: this.user.id,
+                userId: this.user.id,
                 postId: this.post.id
               }
             })
